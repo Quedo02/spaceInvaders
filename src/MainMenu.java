@@ -14,7 +14,7 @@ public class MainMenu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new Game();
-                dispose();
+                dispose(); // Cerrar el menú principal
             }
         });
 
@@ -23,6 +23,6 @@ public class MainMenu extends JFrame {
     }
 
     public static void main(String[] args) {
-        new MainMenu();
+        SwingUtilities.invokeLater(() -> new MainMenu());
     }
 }

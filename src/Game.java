@@ -11,6 +11,7 @@ public class Game extends JFrame {
         add(panel);
         setVisible(true);
 
+        // Iniciar el hilo del juego
         new Thread(new GameThread(panel)).start();
     }
 }
