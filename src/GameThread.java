@@ -1,20 +1,26 @@
-public class GameThread implements Runnable {
-    private final GamePanel panel;
+public class GameThread extends Thread {
+    private GamePanel gamePanel;
+    private boolean running = true;
 
-    public GameThread(GamePanel panel) {
-        this.panel = panel;
+    public GameThread(GamePanel gamePanel) {
+        this.gamePanel = gamePanel;
     }
 
     @Override
-    public void run() {
-        while (panel.isRunning()) {
-            panel.updateGame();
-            panel.repaint();
+    public void run() {//metodo que ejecuta un hilo que actualiza el juego
+        while (running) {
             try {
-                Thread.sleep(16); // ~60 FPS
+                gamePanel.updateGame();
+                gamePanel.repaint();
+                Thread.sleep(16); // Aproximadamente 60 FPS
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                running = false;
             }
         }
+    }
+
+    public void stopThread() {//Funcion que detiene la ejecucion del hilo anterior
+        running = false;
+        interrupt(); // Interrumpe el hilo en caso de que esté bloqueado
     }
 }

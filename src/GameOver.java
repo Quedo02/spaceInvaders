@@ -2,14 +2,14 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GameOver extends JFrame {
-    public GameOver(GamePanel gamePanel, int score, int wave) {
+    public GameOver(Game game, int score, int wave) {//constructor de la ventana que muestra las estadisticas del juego
         setTitle("Game Over");
         setSize(400, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(3, 1));
+        panel.setLayout(new GridLayout(4, 1));
 
         JLabel gameOverLabel = new JLabel("Game Over", SwingConstants.CENTER);
         gameOverLabel.setFont(new Font("Arial", Font.BOLD, 24));
@@ -24,7 +24,10 @@ public class GameOver extends JFrame {
         panel.add(waveLabel);
 
         JButton restartButton = new JButton("Reiniciar");
-        restartButton.addActionListener(e -> dispose());
+        restartButton.addActionListener(e -> {//boton para reiniciar el juego al presionarlo
+            dispose();
+            game.restartGame(); // Llamar al reinicio del juego desde la clase principal
+        });
         panel.add(restartButton);
 
         add(panel);
